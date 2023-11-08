@@ -48,7 +48,7 @@ const PetPage = ({ pet }) => {
           </div>
 
           <div className="btn-container">
-            <Link href={`pets/${pet._id}/edit`}>
+            <Link href={`/pets/${pet._id}/edit`}>
               <button className="btn edit">Edit</button>
             </Link>
             <button className="btn delete" onClick={handleDelete}>
@@ -65,13 +65,13 @@ const PetPage = ({ pet }) => {
 export async function getServerSideProps({ params }) {
   await dbConnect();
 
-  if (!params?.id) {
+  if (!params.id) {
     return {
       notFound: true,
     };
   }
 
-  const pet = await Pet.findById(params._id).lean();
+  const pet = await Pet.findById(params.id).lean();
 
   if (!pet) {
     return {
